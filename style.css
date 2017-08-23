@@ -1,0 +1,200 @@
+/* style.css */
+
+/* Font import */
+@font-face {
+    font-family: "HK Grotesk";
+    src: url(fonts/HKGroteskPro-ExtraLight.ttf) format("truetype");
+    font-weight: 250;
+}
+@font-face {
+    font-family: "HK Grotesk";
+    src: url(fonts/HKGroteskPro-Light.ttf) format("truetype");
+    font-weight: 300;
+}
+@font-face {
+    font-family: "HK Grotesk";
+    src: url(fonts/HKGroteskPro-Medium.ttf) format("truetype");
+    font-weight: 500;
+}
+@font-face {
+    font-family: "HK Grotesk";
+    src: url(fonts/HKGroteskPro-Bold.ttf) format("truetype");
+    font-weight: 700;
+}
+
+/* Style rules */
+body {
+    background-color: #000;
+
+    color: #fff;
+    font-size: 1.5em;
+    font-family: "HK Grotesk", sans-serif;
+    font-weight: 300;
+}
+
+.background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+
+    background-image: url("img/orion.jpg");
+    background-size: cover;
+    background-attachment: fixed;
+
+    z-index: -10;
+}
+
+/* ----------------- */
+/* Basic page layout */
+/* ----------------- */
+.layout {
+    /* Grid container */
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+
+    /* Actual juicy bits */
+    display: grid;
+    grid-template-columns: 3em auto;
+    grid-template-rows: 5em auto;
+    grid-template-areas:
+    "sidebar header"
+    "sidebar content";
+}
+.sidebar {
+    grid-area: sidebar;
+
+    padding-top: 5em;
+
+    background: #000;
+}
+.sidebar .button {
+    position: relative;
+    height: 3em;
+    width: 3em;
+
+    background: none;
+    background-position: .5em .75em;
+    background-size: 1.5em;
+    background-repeat: no-repeat;
+
+    /* Effectively places the border on the inside instead of the outside */
+    box-sizing: border-box;
+    border-left: .25em solid transparent;
+}
+.sidebar .button:hover,
+.sidebar .button:focus {
+    background-color: rgba(255, 255, 255, .1);
+}
+.sidebar .button:active {
+    background-color: rgba(255, 255, 255, .2);
+
+    border-left: .25em solid rgba(255, 255, 255, .2);
+}
+.sidebar .button.on {
+    border-left: .25em solid #f70;
+}
+
+.header {
+    grid-area: header;
+
+    /* Center the text because apparently we haven't found a way to do this well yet */
+    display: flex;
+    align-items: center;
+    padding: 0em .8em;
+
+    font-size: 2.5em;
+    font-weight: 700;
+    vertical-align: middle;
+
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.content {
+    grid-area: content;
+}
+
+/* ------- */
+/* Buttons */
+/*-------- */
+.button.newton {
+    background-image: url("icons/calculator.png");
+}
+
+.button.relat {
+    background-image: url("icons/rocket.png");
+}
+
+.button.entries {
+    background-image: url("icons/data_config.png");
+}
+
+.button.about {
+    position: absolute;
+    bottom: 0;
+
+    background-image: url("icons/heart.png");
+}
+
+/* -------------------- */
+/* Newtonian calculator */
+/* -------------------- */
+.content .newton {
+    height: 100%;
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 100%;
+    grid-template-areas:
+    "leftpane rightpane";
+}
+
+/* Entry boxes for both panes */
+.content .newton * .entry {
+    box-sizing: border-box;
+
+    width: 100%;
+    padding: .6em 1.5em;
+
+    background-color: transparent;
+}
+.content .newton * .entry:hover {
+    background-color: rgba(255, 255, 255, .1);
+}
+
+/* Distances pane */
+.content .newton .distances {
+    grid-area: leftpane;
+
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.content .newton .distances .entry .calc {
+    font-size: 1.7em;
+    font-weight: 250;
+}
+
+.content .newton .distances .entry .desc {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* Velocities pane */
+.content .newton .velocities {
+    grid-area: rightpane;
+    
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.content .newton .velocities .entry .calc {
+    font-size: 2.5em;
+}
+
+.content .newton .velocities .entry .desc {
+    color: #f70;
+    font-weight: 500;
+}
