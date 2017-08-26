@@ -155,12 +155,12 @@ body {
 }
 
 /* Entry boxes for both panes */
-.content .newton * .entry {
+.entry {
     padding: .6em 1.5em;
 
     background-color: transparent;
 }
-.content .newton * .entry:hover {
+.entry:hover {
     background-color: rgba(255, 255, 255, .1);
 }
 
@@ -173,10 +173,6 @@ body {
     background: rgba(0, 0, 0, 0.7);
 }
 
-#input_distance .entry .calc {
-    font-size: 1.7em;
-    font-weight: 250;
-}
 /* The input box is nice, but I don't like the spin buttons */
 input[type=number]::-webkit-inner-spin-button, 
 input[type=number]::-webkit-outer-spin-button { 
@@ -187,8 +183,13 @@ input[type=number] {
     -moz-appearance:textfield;
 }
 
-#input_distance .entry .desc {
+.entry.dist {
     color: rgba(255, 255, 255, 0.5);
+}
+
+.entry.dist span {
+    color: #fff;
+    font-size: 1.8em;
 }
 
 /* Velocities pane */
@@ -200,7 +201,12 @@ input[type=number] {
     background: rgba(0, 0, 0, 0.6);
 }
 
-#input_velocity .entry .calc {
+.entry.velo {
+    color: #f70;
+    font-weight: 500;
+}
+
+.entry.velo input {
     margin: 0;
     padding: 0;
 
@@ -213,12 +219,6 @@ input[type=number] {
     color: #fff;
     background: none;
 }
-#input_velocity .entry .calc:focus {
+.entry.velo input:focus {
     font-weight: 700;
-}
-
-
-#input_velocity .entry .desc {
-    color: #f70;
-    font-weight: 500;
 }
