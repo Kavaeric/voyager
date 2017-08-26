@@ -41,10 +41,18 @@ body {
 
     background-image: url("img/orion.jpg");
     background-size: cover;
-    background-attachment: fixed;
+    background-attachment: fixed;   
 
     z-index: -10;
 }
+div::-webkit-scrollbar {
+    width: 16px;
+    background: none;
+}
+div::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, .3);
+}
+
 
 /* ----------------- */
 /* Basic page layout */
@@ -54,8 +62,8 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-    height: 100%;
-    width: 100%;
+    height: 100vh;
+    width: 100vw;
 
     /* Actual juicy bits */
     display: grid;
@@ -114,10 +122,6 @@ body {
     background: rgba(0, 0, 0, 0.7);
 }
 
-.content {
-    grid-area: content;
-}
-
 /* ------- */
 /* Buttons */
 /*-------- */
@@ -143,7 +147,9 @@ body {
 /* -------------------- */
 /* Newtonian calculator */
 /* -------------------- */
-.content .newton {
+.newton {
+    grid-area: content;
+    position: absolute;
     height: 100%;
     width: 100%;
 
@@ -167,6 +173,8 @@ body {
 /* Distances pane */
 #input_distance {
     grid-area: leftpane;
+    overflow-y: auto;
+
     display: flex;
     flex-direction: column;
 
@@ -195,6 +203,8 @@ input[type=number] {
 /* Velocities pane */
 #input_velocity {
     grid-area: rightpane;
+    overflow-y: auto;
+
     display: flex;
     flex-direction: column;
     
@@ -207,6 +217,7 @@ input[type=number] {
 }
 
 .entry.velo input {
+    width: 100%;
     margin: 0;
     padding: 0;
 

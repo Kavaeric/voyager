@@ -19,9 +19,13 @@ function addDistance(givenName, givenDist) {
 // Default distances. Later, users may set something up on their own
 addDistance('to Neptune',          4.332 * Math.pow(10, 12));
 addDistance('to Proxima Centauri', 3.991 * Math.pow(10, 16));
-addDistance('to Sirius',           8.128 * Math.pow(10, 16));
-addDistance('to HIP 74995',        1.933 * Math.pow(10, 17));
+addDistance('to Tau Ceti',         1.124 * Math.pow(10, 17));
+addDistance('to TRAPPIST-1',       3.731 * Math.pow(10, 17));
+addDistance('to Polaris',          4.077 * Math.pow(10, 18));
+addDistance('to M42 Orion Nebula', 1.513 * Math.pow(10, 19));
+addDistance('to Sagittarius A*',   2.349 * Math.pow(10, 20));
 addDistance('Milky Way diameter',  9.461 * Math.pow(10, 20));
+addDistance('to M31 Andromeda',    2.433 * Math.pow(10, 22));
 
 console.log(distances);
 
@@ -41,10 +45,12 @@ function addVelocity(givenName, givenSpeed) {
 
 // Default speeds. Later, users may set something up on their own
 addVelocity('times the speed of light (c)', c);
-addVelocity('Light years per hour (ly/h)',  2.628 * Math.pow(10, 12));
-addVelocity('Parsecs per hour (pc/h)',      8.571 * Math.pow(10, 12));
-// addVelocity('Light years per second (ly/s)',  9.461 * Math.pow(10, 15));
-// addVelocity('Parsecs per second (pc/s)',      3.086 * Math.pow(10, 16));
+addVelocity('Petametres per hour (Pm/h)',    2.778 * Math.pow(10, 11));
+addVelocity('Exametres per hour (Em/h)',     2.778 * Math.pow(10, 12));
+addVelocity('Light years per hour (ly/h)',   2.628 * Math.pow(10, 12));
+addVelocity('Parsecs per hour (pc/h)',       8.571 * Math.pow(10, 12));
+addVelocity('Light years per second (ly/s)', 9.461 * Math.pow(10, 15));
+addVelocity('Parsecs per second (pc/s)',     3.086 * Math.pow(10, 16));
 
 /// Populate the panes ///
 function populate() {
@@ -104,40 +110,36 @@ function calculate(selectedUnit) {
         var travelTime = distances[i]['dist'] / equivalentSpeed;
         var timeUnits = 'seconds';
 
-        // Begin making conversions to larger units
-        if (travelTime <= 0.5) {
-            // Convert to milliseconds
-            travelTime *= 1000;
-            timeUnits = 'milliseconds';
-        }
-        else if (travelTime > 60) {
-            // Convert to minutes
-            travelTime /= 60;
-            timeUnits = 'minutes';
-
-            if (travelTime > 60) {
-                // Convert to hours
+        if (travelTime != Infinity) {
+            // Begin making conversions to larger units
+            if (travelTime <= 0.5) {
+                // Convert to milliseconds
+                travelTime *= 1000;
+                timeUnits = 'milliseconds';
+            }
+            else if (travelTime > 60) {
+                // Convert to minutes
                 travelTime /= 60;
-                timeUnits = 'hours';
+                timeUnits = 'minutes';
 
-                if (travelTime > 24) {
-                    // Convert to days
-                    travelTime /= 24;
-                    timeUnits = 'days';
+                if (travelTime > 60) {
+                    // Convert to hours
+                    travelTime /= 60;
+                    timeUnits = 'hours';
 
-                    if (travelTime > 365) {
-                        // Convert to years
-                        travelTime /= 365;
-                        timeUnits = 'years';
+                    if (travelTime > 24) {
+                        // Convert to days
+                        travelTime /= 24;
+                        timeUnits = 'days';
 
-                        if (travelTime > 100) {
-                            // Convert to centuries
-                            travelTime /= 100;
-                            timeUnits = 'centuries';
+                        if (travelTime > 365) {
+                            // Convert to years
+                            travelTime /= 365;
+                            timeUnits = 'years';
 
-                            if (travelTime > 100) {
+                            if (travelTime > 1000) {
                                 // Convert to millennia
-                                travelTime /= 10;
+                                travelTime /= 1000;
                                 timeUnits = 'millennia'
 
                                 if (travelTime > 1000) {
@@ -152,10 +154,13 @@ function calculate(selectedUnit) {
                     }
                 }
             }
+            // Assign the new value to the corresponding unit's input field
+            $('.entry.dist span.' + i).text(travelTime.toFixed(3) + ' ' + timeUnits);
         }
-
-        // Assign the new value to the corresponding unit's input field
-        $('.entry.dist span.' + i).text(travelTime.toFixed(3) + ' ' + timeUnits);
+        else {
+            // [ECHOING] FOREVERRRR
+            $('.entry.dist span.' + i).text('Forever');
+        }
     }
 }
 

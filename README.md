@@ -1,8 +1,6 @@
 # Voyager
 
-> Images of broken light which dance before me like a million eyes,
-> They call me on and on across the universe.
-
+> Images of broken light which dance before me like a million eyes; They call me on and on, across the universe.
 
 A calculator to assist with science-fiction worldbuilding. It calculates travel times and speeds for faster-than-light travel of known distances.
 
