@@ -4,7 +4,7 @@
 @font-face {
     font-family: "HK Grotesk";
     src: url(fonts/HKGroteskPro-ExtraLight.ttf) format("truetype");
-    font-weight: 250;
+    font-weight: 200;
 }
 @font-face {
     font-family: "HK Grotesk";
@@ -30,6 +30,7 @@ body {
     font-size: 1.5em;
     font-family: "HK Grotesk", sans-serif;
     font-weight: 300;
+    overflow: hidden;
 }
 
 .background {
@@ -45,6 +46,18 @@ body {
 
     z-index: -10;
 }
+
+a {
+    color: #FA7;
+    font-weight: 500;
+    text-decoration: none;
+
+    transition: color .2s;
+}
+a:hover {
+    color: #fff;
+}
+
 div::-webkit-scrollbar {
     width: 16px;
     background: none;
@@ -68,9 +81,8 @@ div::-webkit-scrollbar-thumb {
     /* Actual juicy bits */
     display: grid;
     grid-template-columns: 3em auto;
-    grid-template-rows: 5em auto;
+    grid-template-rows: auto;
     grid-template-areas:
-    "sidebar header"
     "sidebar content";
 }
 .sidebar {
@@ -102,8 +114,41 @@ div::-webkit-scrollbar-thumb {
 
     border-left: .25em solid rgba(255, 255, 255, .2);
 }
-.sidebar .button.on {
+.sidebar > .button.on {
     border-left: .25em solid #f70;
+}
+
+/* Any calculator or entry whatever mode */
+.mode {
+    grid-area: content;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+
+    /* Default grid layout. Override in the mode's specific class */
+    display: grid;
+    /* grid-template-columns: 50% 50%;*/
+    grid-template-rows: 5em auto;
+    grid-template-areas:
+    "header"
+    "area";
+}
+
+/* For placeholdy work in progressy purposes */
+.wip {
+    grid-area: area;
+
+    height: 4em;
+    width: 24em;
+    margin: auto;
+
+    font-size: 1.5em;
+    text-align: center;
+    line-height: 4em;
+
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('img/orion_over.jpg');
+    background-size: cover;
+    background-attachment: fixed;
 }
 
 .header {
@@ -119,7 +164,9 @@ div::-webkit-scrollbar-thumb {
     font-weight: 700;
     vertical-align: middle;
 
-    background: rgba(0, 0, 0, 0.7);
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('img/orion_over.jpg');
+    background-size: cover;
+    background-attachment: fixed;
 }
 
 /* ------- */
@@ -147,16 +194,12 @@ div::-webkit-scrollbar-thumb {
 /* -------------------- */
 /* Newtonian calculator */
 /* -------------------- */
-.newton {
-    grid-area: content;
-    position: absolute;
-    height: 100%;
-    width: 100%;
-
+.mode.newton {
     display: grid;
-    grid-template-columns: 50% 50%;
-    grid-template-rows: 100%;
+    grid-template-columns: 40% auto;
+    grid-template-rows: 5em auto;
     grid-template-areas:
+    "header header"
     "leftpane rightpane";
 }
 
@@ -178,7 +221,9 @@ div::-webkit-scrollbar-thumb {
     display: flex;
     flex-direction: column;
 
-    background: rgba(0, 0, 0, 0.7);
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('img/orion_over.jpg');
+    background-size: cover;
+    background-attachment: fixed;
 }
 
 /* The input box is nice, but I don't like the spin buttons */
@@ -208,7 +253,9 @@ input[type=number] {
     display: flex;
     flex-direction: column;
     
-    background: rgba(0, 0, 0, 0.6);
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('img/orion_over.jpg');
+    background-size: cover;
+    background-attachment: fixed;
 }
 
 .entry.velo {
@@ -231,5 +278,84 @@ input[type=number] {
     background: none;
 }
 .entry.velo input:focus {
+    font-weight: 700;
+}
+
+
+/* ----------------------- */
+/* Relativistic calculator */
+/* ----------------------- */
+.mode.relat {
+    /* Todo */
+}
+
+/* -------- */
+/* Database */
+/* -------- */
+.mode.entries {
+    /* Todo */
+}
+
+/* ---------- */
+/* About menu */
+/* ---------- */
+
+/* Using default layout */
+
+#voyagerProbe {
+    display: block;
+    height: 5em;
+    margin: 3em 0 3em 4.5em;
+
+    animation-name: voyager;
+    animation-duration: 2s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+@keyframes voyager {
+    from { transform: translate(0, 0) rotate(12deg); }
+    to   { transform: translate(-.02em, .5em) rotate(12deg); }
+}
+
+.aboutWindow {
+    grid-area: area;
+
+    width: 20em;
+    padding: 2em;
+    margin: auto;
+
+    text-align: center;
+
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('img/orion_over.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+}
+.aboutWindow h1 {
+    margin: 0;
+
+    font-size: 4em;
+    font-weight: 200;
+}
+.aboutWindow h2 {
+    margin: 0;
+
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 1em;
+    font-weight: 500;
+}
+
+.aboutWindow blockquote {
+    color:rgba(255, 255, 255, 0.5);
+    font-size: 0.8em;
+    font-weight: 500;
+}
+
+a.kofi {
+    display: inline-block;
+    margin-top: 4em;
+
+    font-size: 0.8em;
     font-weight: 700;
 }

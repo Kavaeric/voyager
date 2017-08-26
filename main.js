@@ -26,6 +26,7 @@ addDistance('to M42 Orion Nebula', 1.513 * Math.pow(10, 19));
 addDistance('to Sagittarius A*',   2.349 * Math.pow(10, 20));
 addDistance('Milky Way diameter',  9.461 * Math.pow(10, 20));
 addDistance('to M31 Andromeda',    2.433 * Math.pow(10, 22));
+addDistance('Observable universe', 8.800 * Math.pow(10, 26));
 
 console.log(distances);
 
@@ -85,7 +86,7 @@ function populate() {
     });
 }
 
-/// Beefy calculations ///
+// Beefy calculations 
 function calculate(selectedUnit) {
     // Get ID number
     var unitNo = parseInt( $(selectedUnit).attr('class') );
@@ -138,9 +139,9 @@ function calculate(selectedUnit) {
                             timeUnits = 'years';
 
                             if (travelTime > 1000) {
-                                // Convert to millennia
+                                // Convert to kyear
                                 travelTime /= 1000;
-                                timeUnits = 'millennia'
+                                timeUnits = 'kyear'
 
                                 if (travelTime > 1000) {
                                     // Convert to Myear or whatever
@@ -158,8 +159,13 @@ function calculate(selectedUnit) {
             $('.entry.dist span.' + i).text(travelTime.toFixed(3) + ' ' + timeUnits);
         }
         else {
-            // [ECHOING] FOREVERRRR
-            $('.entry.dist span.' + i).text('Forever');
+            // If the input is 0 then it'll take FOREVER
+            if (Math.floor(Math.random() * 700) != 0) {
+                $('.entry.dist span.' + i).text('Forever');
+            }
+            else {
+                $('.entry.dist span.' + i).html( novelty[Math.floor(Math.random() * novelty.length)] )
+            }
         }
     }
 }
@@ -178,8 +184,38 @@ var btn_relat = $('.button.relat');
 var btn_entries = $('.button.entries');
 var btn_about = $('.button.about');
 
-btn_newton.addClass('on');
+function switchMenu(selectedButton) {
+    // Turn off all the buttons...
+    $('.sidebar > .button').removeClass('on');
+    // ...except for the one clicked
+    $(selectedButton).addClass('on');
 
+    // Show corresponding menus
+    if (selectedButton.hasClass('newton')) {
+        $('.mode').each( function () {$(this).hide()} );
+        $('.mode.newton').show();
+    }
+    else if (selectedButton.hasClass('relat')) {
+        $('.mode').each( function () {$(this).hide()} );
+        $('.mode.relat').show();
+    }
+    else if (selectedButton.hasClass('entries')) {
+        $('.mode').each( function () {$(this).hide()} );
+        $('.mode.entries').show();
+    }
+    else if (selectedButton.hasClass('about')) {
+        $('.mode').each( function () {$(this).hide()} );
+        $('.mode.about').show();
+    }
+}
 
-/// Runtime ///
+// Select the Newtonian calculator by default
+switchMenu(btn_newton);
+
+// Attach listener to all buttons
+$('.sidebar > .button').each( function() {
+                                $(this).click(function() {switchMenu($(this))} )
+                            } );
+
+/// Run ///
 populate();
