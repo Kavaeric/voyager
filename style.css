@@ -3,22 +3,22 @@
 /* Font import */
 @font-face {
     font-family: "HK Grotesk";
-    src: url(fonts/HKGroteskPro-ExtraLight.ttf) format("truetype");
+    src: url(fonts/HKGroteskPro-ExtraLight.woff2) format("woff2");
     font-weight: 200;
 }
 @font-face {
     font-family: "HK Grotesk";
-    src: url(fonts/HKGroteskPro-Light.ttf) format("truetype");
+    src: url(fonts/HKGroteskPro-Light.woff2) format("woff2");
     font-weight: 300;
 }
 @font-face {
     font-family: "HK Grotesk";
-    src: url(fonts/HKGroteskPro-Medium.ttf) format("truetype");
+    src: url(fonts/HKGroteskPro-Medium.woff2) format("woff2");
     font-weight: 500;
 }
 @font-face {
     font-family: "HK Grotesk";
-    src: url(fonts/HKGroteskPro-Bold.ttf) format("truetype");
+    src: url(fonts/HKGroteskPro-Bold.woff2) format("woff2");
     font-weight: 700;
 }
 
@@ -48,8 +48,8 @@ body {
 }
 
 a {
-    color: #FA7;
-    font-weight: 500;
+    color: #fa7;
+    font-weight: 700;
     text-decoration: none;
 
     transition: color .2s;
@@ -65,11 +65,88 @@ div::-webkit-scrollbar {
 div::-webkit-scrollbar-thumb {
     background: rgba(255, 255, 255, .3);
 }
+.button {
+    background-position: center;
+    background-size: 1.5em;
+    background-repeat: no-repeat;
+}
+.button:hover,
+.button:focus {
+    background-color: rgba(255, 255, 255, .1);
+}
+.button:active {
+    background-color: rgba(255, 255, 255, .2);
+}
 
+/* Distances pane */
+#inputDist {
+    grid-area: leftpane;
+    overflow-y: auto;
 
-/* ----------------- */
-/* Basic page layout */
-/* ----------------- */
+    display: flex;
+    flex-direction: column;
+
+    background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('img/orion_over.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+input,
+select {
+    font-family: inherit;
+    font-weight: 300;
+    font-size: 1.2em;
+    border: .1em solid rgba(255, 255, 255, 0.4);
+    padding: .3em;
+    margin-bottom: 1em;
+
+    color: #fff;
+    background-color: rgba(0, 0, 0, .5);
+}
+input:hover,
+select:hover {
+    background-color: rgba(25, 25, 25, .5);
+}
+input:focus,
+select:focus {
+    border-color: #f70;
+}
+input:invalid {
+    border-color: #f00;
+
+    background: rgba(50, 0, 0, .5);
+    background-image: url("icons/error.png");
+    background-size: 1.5em;
+    background-position: left .25em center;
+    background-repeat: no-repeat;
+
+    box-shadow: none;
+}
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    background-image: url("icons/dropdown.png");
+    background-size: 1em;
+    background-position: right .5em center;
+    background-repeat: no-repeat
+}
+select option {
+    font-weight: 300;
+    background: #000;
+}
+
+/* The input box is nice, but I don't like the spin buttons */
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    margin: 0; 
+}
+input[type=number] {
+    -moz-appearance:textfield;
+}
+
 .layout {
     /* Grid container */
     position: absolute;
@@ -87,34 +164,29 @@ div::-webkit-scrollbar-thumb {
 }
 .sidebar {
     grid-area: sidebar;
-    padding-top: 5em;
+    padding-top: 4em;
 
     background: #000;
 }
-.sidebar .button {
+.sidebar > .button {
     position: relative;
     height: 3em;
     width: 3em;
-
-    background: none;
-    background-position: .5em .75em;
-    background-size: 1.5em;
-    background-repeat: no-repeat;
 
     /* Effectively places the border on the inside instead of the outside */
     box-sizing: border-box;
     border-left: .25em solid transparent;
 }
-.sidebar .button:hover,
-.sidebar .button:focus {
+.sidebar > .button:hover,
+.sidebar > .button:focus {
     background-color: rgba(255, 255, 255, .1);
 }
-.sidebar .button:active {
-    background-color: rgba(255, 255, 255, .2);
-
-    border-left: .25em solid rgba(255, 255, 255, .2);
+.sidebar > .button:active {
+    background-color: rgba(255, 255, 255, .1);
+    border-left: .25em solid rgba(255, 255, 255, .3);
 }
 .sidebar > .button.on {
+    background-color: rgba(255, 255, 255, .2);
     border-left: .25em solid #f70;
 }
 
@@ -128,7 +200,7 @@ div::-webkit-scrollbar-thumb {
     /* Default grid layout. Override in the mode's specific class */
     display: grid;
     /* grid-template-columns: 50% 50%;*/
-    grid-template-rows: 5em auto;
+    grid-template-rows: 4em auto;
     grid-template-areas:
     "header"
     "area";
@@ -160,18 +232,26 @@ div::-webkit-scrollbar-thumb {
     align-items: center;
     padding: 0em .8em;
 
-    font-size: 2.5em;
+    font-size: 2em;
     font-weight: 700;
     vertical-align: middle;
 
-    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('img/orion_over.jpg');
+    background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('img/orion_over.jpg');
     background-size: cover;
     background-attachment: fixed;
 }
 
-/* ------- */
+/* List entries */
+.entry {
+    padding: .6em 1.5em;
+
+    background-color: transparent;
+}
+.entry:hover {
+    background-color: rgba(255, 255, 255, .1);
+}
+
 /* Buttons */
-/*-------- */
 .button.newton {
     background-image: url("icons/calculator.png");
 }
@@ -189,173 +269,4 @@ div::-webkit-scrollbar-thumb {
     bottom: 0;
 
     background-image: url("icons/heart.png");
-}
-
-/* -------------------- */
-/* Newtonian calculator */
-/* -------------------- */
-.mode.newton {
-    display: grid;
-    grid-template-columns: 40% auto;
-    grid-template-rows: 5em auto;
-    grid-template-areas:
-    "header header"
-    "leftpane rightpane";
-}
-
-/* Entry boxes for both panes */
-.entry {
-    padding: .6em 1.5em;
-
-    background-color: transparent;
-}
-.entry:hover {
-    background-color: rgba(255, 255, 255, .1);
-}
-
-/* Distances pane */
-#input_distance {
-    grid-area: leftpane;
-    overflow-y: auto;
-
-    display: flex;
-    flex-direction: column;
-
-    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('img/orion_over.jpg');
-    background-size: cover;
-    background-attachment: fixed;
-}
-
-/* The input box is nice, but I don't like the spin buttons */
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
-    -webkit-appearance: none;
-    margin: 0; 
-}
-input[type=number] {
-    -moz-appearance:textfield;
-}
-
-.entry.dist {
-    color: rgba(255, 255, 255, 0.5);
-}
-
-.entry.dist span {
-    color: #fff;
-    font-size: 1.8em;
-}
-
-/* Velocities pane */
-#input_velocity {
-    grid-area: rightpane;
-    overflow-y: auto;
-
-    display: flex;
-    flex-direction: column;
-    
-    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('img/orion_over.jpg');
-    background-size: cover;
-    background-attachment: fixed;
-}
-
-.entry.velo {
-    color: #f70;
-    font-weight: 500;
-}
-
-.entry.velo input {
-    width: 100%;
-    margin: 0;
-    padding: 0;
-
-    font-family: inherit;
-    font-weight: 300;
-    font-size: 2.5em;
-
-    border: none;
-
-    color: #fff;
-    background: none;
-}
-.entry.velo input:focus {
-    font-weight: 700;
-}
-
-
-/* ----------------------- */
-/* Relativistic calculator */
-/* ----------------------- */
-.mode.relat {
-    /* Todo */
-}
-
-/* -------- */
-/* Database */
-/* -------- */
-.mode.entries {
-    /* Todo */
-}
-
-/* ---------- */
-/* About menu */
-/* ---------- */
-
-/* Using default layout */
-
-#voyagerProbe {
-    display: block;
-    height: 5em;
-    margin: 3em 0 3em 4.5em;
-
-    animation-name: voyager;
-    animation-duration: 2s;
-    animation-timing-function: ease-in-out;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
-}
-
-@keyframes voyager {
-    from { transform: translate(0, 0) rotate(12deg); }
-    to   { transform: translate(-.02em, .5em) rotate(12deg); }
-}
-
-.aboutWindow {
-    grid-area: area;
-
-    width: 20em;
-    padding: 2em;
-    margin: auto;
-
-    text-align: center;
-
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('img/orion_over.jpg');
-    background-size: cover;
-    background-attachment: fixed;
-}
-.aboutWindow h1 {
-    margin: 0;
-
-    font-size: 4em;
-    font-weight: 200;
-}
-.aboutWindow h2 {
-    margin: 0;
-
-    color: rgba(255, 255, 255, 0.5);
-    font-size: 1em;
-    font-weight: 500;
-}
-
-.aboutWindow blockquote {
-    color:rgba(255, 255, 255, 0.5);
-    font-size: 0.8em;
-    font-weight: 500;
-}
-
-a.kofi {
-    display: inline-block;
-    margin-top: 4em;
-
-    font-size: 0.8em;
-    font-weight: 700;
 }

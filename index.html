@@ -7,10 +7,16 @@
     <title>Voyager</title>
 
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="newton.css">
+    <link rel="stylesheet" href="relat.css">
+    <link rel="stylesheet" href="entries.css">
+    <link rel="stylesheet" href="about.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="novelty.js" defer></script>
     <script src="main.js" defer></script>
+    <script src="newton.js" defer></script>
+    <script src="entries.js" defer></script>
 </head>
 
 <body>
@@ -23,41 +29,74 @@
             <div class="button about" title="About"></div>
         </div>
 
+        <!-- Newtonian calculator -->
         <div class="mode newton">
             <div class="header">NEWTONIAN</div>
-            <div id="input_distance">
+            <div id="inputDist">
                 <!--<div class="entry dist">
                     <span>Forever</span><br>
-                    to Neptune
+                    <span>to Neptune</span>
                 </div>-->
             </div>
 
-            <div id="input_velocity">
+            <div id="inputVelo">
                 <!--<div class="entry velo">
-                    <input class="0" type="number" value="0" min="0" maxlength="12" step="0.001"><br />
+                    <input type="number" value="0" min="0" maxlength="12" step="0.001"><br />
                     times the speed of light (c)
                 </div>-->
             </div>
         </div>
 
+        <!-- Relativistic calculator -->
         <div class="mode relat">
             <div class="header">RELATIVISTIC</div>
             <div class="wip">Hang in there. We're still working on it.</div>
         </div>
 
+        <!-- Database entries -->
         <div class="mode entries">
             <div class="header">DATABASE ENTRIES</div>
-            <div class="wip">Hang in there. We're still working on it.</div>
+            <div id="dbNavbar">
+                <div class="button dist on">Distances</div>
+            </div>
+
+            <div id="dbDist"></div>
+
+            <div id="dbDistAddEntry">
+                <div class="entryForm">
+                    <h1>Create Distance</h1>
+                    <h2>Name</h2>
+                    <input name="name" type="text" placeholder="Arbitrary Distance" value="">
+
+                    <h2>Distance</h2>
+                    <div class="distanceInputBoxes">
+                        <input name="dist" type="number" placeholder="1" value="1" min="0.001" maxlength="12" step="0.001">
+                        <select name="unit">
+                            <option value="au">astronomical units</option>
+                            <option value="ly">light years</option>
+                            <option value="pc">parsecs</option>
+                            <option value="Pm">petametres</option>
+                            <option value="Em">exametres</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="buttonRow">
+                    <div class="button cancel" title="Cancel"></div>
+                    <div class="button save" title="Save"></div>
+                </div>
+            </div>
         </div>
 
+        <!-- About menu -->
         <div class="mode about">
             <div class="header">ABOUT</div>
             <div class="aboutWindow">
                 <h1>Voyager</h1>
-                <h2>A 06 &ensp;&ndash;&ensp; 27 August 2017</h2>
+                <h2>A 07 &ensp;&ndash;&ensp; 27 August 2017</h2>
                 <p>Hi, I'm <a href="https://twitter.com/Kavaeric/status/898970080297472000" target="_blank">Kavaeric</a>. 
-                    I also develop my own science-fiction world, +700.
-                    I hope this tool helps you in your endeavours too.</p>
+                    I develop my own science-fiction world, +700, and made this tool to help.
+                    I hope it helps you in your endeavours as well.</p>
                 <img id="voyagerProbe" src="voyager.svg">
                 <a class="kofi" href="https://ko-fi.com/kavaeric" target="_blank">BUY ME A KO-FI &#x2764;</a>
             </div>

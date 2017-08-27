@@ -1,0 +1,158 @@
+/* entries.css */
+
+.mode.entries {
+    display: grid;
+    grid-template-columns: 40% auto;
+    grid-template-rows: 4em 3em auto;
+    grid-template-areas:
+    "header header"
+    "navbar navbar"
+    "leftpane rightpane";
+}
+
+.mode.entries .buttonRow {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+#dbNavbar {
+    grid-area: navbar;
+
+    display: flex;
+
+    background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('img/orion_over.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+#dbNavbar > .button {
+    position: relative;
+    height: 3em;
+    width: 12em;
+    text-align: center;
+    
+    font-weight: 500;
+    line-height: 3em;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    /* Effectively places the border on the inside instead of the outside */
+    box-sizing: border-box;
+    border-bottom: .2em solid transparent;
+}
+#dbNavbar > .button:active {
+    border-bottom: .2em solid rgba(255, 255, 255, .2);
+}
+#dbNavbar > .button.on {
+    border-bottom: .2em solid #f70;
+}
+
+
+#dbDist {
+    grid-area: leftpane;
+    overflow-y: auto;
+
+    display: flex;
+    flex-direction: column;
+
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('img/orion_over.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+}
+.mode.entries .entry {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 2.5em;
+    padding: 0;
+}
+.mode.entries span {
+    display: inline-block;
+    width: 100%;
+    margin: 0.6em 1.5em;
+
+    white-space: nowrap;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+}
+.mode.entries .entry .button {
+    display: inline-block;
+    height: 2.5em;
+    width: 5em;
+    right: 0;
+
+    background-image: url("icons/delete.png");
+}
+
+#dbDistAddEntry {
+    grid-area: rightpane;
+    overflow-y: auto;
+
+    display: grid;
+    grid-template-rows: auto 3em;
+
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('img/orion_over.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+#dbDistAddEntry .entryForm {
+    display: flex;
+    flex-direction: column;
+
+    padding: .6em 1.5em;
+}
+
+#dbDistAddEntry .entryForm h1,
+#dbDistAddEntry .entryForm h2,
+#dbDistAddEntry .entryForm input {
+    font-family: inherit;
+    display: inline-block;
+}
+
+#dbDistAddEntry .entryForm h1 {
+    grid-column: 0 / 3;
+    grid-row: 0 / 1;
+
+    margin: 0;
+
+    font-size: 2em;
+    font-weight: 300;
+}
+
+#dbDistAddEntry .entryForm h2 {
+    margin: .5em 0;
+
+    font-size: 1em;
+    font-weight: 500;
+}
+
+#dbDistAddEntry .entryForm input[type="number"] {
+    text-align: right;
+}
+
+#dbDistAddEntry .entryForm .distanceInputBoxes {
+    display: flex;
+}
+#dbDistAddEntry .entryForm .distanceInputBoxes input {
+    margin-right: 1em;
+    flex-grow: 1;
+}
+#dbDistAddEntry .entryForm .distanceInputBoxes select {
+    flex-grow: 1;
+}
+
+#dbDistAddEntry .button.save,
+#dbDistAddEntry .button.cancel {
+    height: 3em;
+    width: 6em;
+}
+
+#dbDistAddEntry .button.save {
+    background-image: url("icons/save.png");
+}
+#dbDistAddEntry .button.cancel {
+    background-image: url("icons/delete.png");
+}

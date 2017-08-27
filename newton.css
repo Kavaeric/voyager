@@ -1,0 +1,72 @@
+/* newton.css */
+
+.mode.newton {
+    display: grid;
+    grid-template-columns: 40% auto;
+    grid-template-rows: 4em auto;
+    grid-template-areas:
+    "header header"
+    "leftpane rightpane";
+}
+
+/* Distances pane */
+#inputDist {
+    grid-area: leftpane;
+    overflow-y: auto;
+
+    display: flex;
+    flex-direction: column;
+
+    background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('img/orion_over.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.mode.newton .entry.dist span:first-child {
+    display: inline-block;
+    width: 100%;
+
+    color: #fff;
+    font-size: 1.8em;
+}
+.mode.newton .entry.dist span:last-child {
+    display: inline-block;
+    width: 100%;
+
+    overflow-x: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* Velocities pane */
+#inputVelo {
+    grid-area: rightpane;
+    overflow-y: auto;
+
+    display: flex;
+    flex-direction: column;
+    
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('img/orion_over.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.mode.newton .entry.velo {
+    color: #f70;
+    font-weight: 500;
+}
+
+.mode.newton .entry.velo input,
+.mode.newton .entry.velo input:hover {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: none;
+
+    font-size: 2.5em;
+}
+.mode.newton .entry.velo input:focus {
+    font-weight: 700;
+}

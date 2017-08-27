@@ -1,32 +1,83 @@
 // main.js
 
 // Define the speed of light in m/s
-var c = 299792458;
+const c = 299792458;
+
+// Define a light-year in m
+const ly = 9460730472580800 ;
+
+// Define an astronomical unit in m
+const au = 149597870700;
+
+// Define a parsec in m (IAU 2015 Resolution B2)
+const pc = (648000 / Math.PI) * au;
+
 
 /// Define distances ///
 var distances = [];
 
 /**
  * Adds a distance to the list of active ones.
- * @param {String} givenName - Name of the distance specified.
- * @param {Number} givenDist - Distance in meters.
+ * @param {String} givenName Name of the distance specified.
+ * @param {Number} givenDist Distance in meters.
+ * @param {Number} givenUnit Given units. "ly" "au" "pc" "Pm" "Em" accepted.
  */
-function addDistance(givenName, givenDist) {
+function addDistance(givenName, givenDist, givenUnit) {
+    // calcDist will store the calculated distance after conversion is done
+    var calcDist;
+
+    // Convert the given distance to metres
+    switch (givenUnit) {
+        // Light-year
+        case "ly":
+            calcDist = givenDist * ly;
+            break;
+
+        // Astronomical unit
+        case "au":
+            calcDist = givenDist * au;
+            break;
+
+        // Parsec
+        case "pc":
+            calcDist = givenDist * pc;
+            break;
+
+        // Petametre
+        case "Pm":
+            calcDist = givenDist * Math.pow(10, 15);
+            break;
+
+        // Exametre
+        case "Em":
+            calcDist = givenDist * Math.pow(10, 18);
+            break;
+
+        // If an invalid number is given, fallback to light-year
+        default:
+            calcDist = givenDist * ly;
+    }
+    
     distances.push({'name': givenName,
-                    'dist': givenDist});
+                    'dist': calcDist});
+
+    // Sort the new array by distance
+    distances.sort( function(a, b) {
+        return a.dist - b.dist;
+    });
 }
 
-// Default distances. Later, users may set something up on their own
-addDistance('to Neptune',          4.332 * Math.pow(10, 12));
-addDistance('to Proxima Centauri', 3.991 * Math.pow(10, 16));
-addDistance('to Tau Ceti',         1.124 * Math.pow(10, 17));
-addDistance('to TRAPPIST-1',       3.731 * Math.pow(10, 17));
-addDistance('to Polaris',          4.077 * Math.pow(10, 18));
-addDistance('to M42 Orion Nebula', 1.513 * Math.pow(10, 19));
-addDistance('to Sagittarius A*',   2.349 * Math.pow(10, 20));
-addDistance('Milky Way diameter',  9.461 * Math.pow(10, 20));
-addDistance('to M31 Andromeda',    2.433 * Math.pow(10, 22));
-addDistance('Observable universe', 8.800 * Math.pow(10, 26));
+// Default distances
+addDistance('to Neptune',            30.110387, "au");
+addDistance('to Proxima Centauri',       4.246, "ly");
+addDistance('to Tau Ceti',              11.905, "ly");
+addDistance('to TRAPPIST-1',            39.5  , "ly");
+addDistance('to Polaris',              378    , "ly");
+addDistance('to M42 Orion Nebula',    1344    , "ly");
+addDistance('to Sagittarius A*',      7611    , "pc");
+addDistance('Milky Way diameter',   100000    , "ly");
+addDistance('to M31 Andromeda',     788300    , "pc");
+addDistance('Observable universe', 93000000000, "ly");
 
 console.log(distances);
 
@@ -52,130 +103,6 @@ addVelocity('Light years per hour (ly/h)',   2.628 * Math.pow(10, 12));
 addVelocity('Parsecs per hour (pc/h)',       8.571 * Math.pow(10, 12));
 addVelocity('Light years per second (ly/s)', 9.461 * Math.pow(10, 15));
 addVelocity('Parsecs per second (pc/s)',     3.086 * Math.pow(10, 16));
-
-/// Populate the panes ///
-function populate() {
-    // Populate distances
-    for (var i = 0; i < distances.length; i++) {
-        var newEntry = $('<div class="entry dist">'
-        + '<span '
-        + 'class="' + i + '">Forever</span> <br>'
-        + distances[i]['name'] + ' </div>');
-
-        $('#input_distance').append(newEntry);
-    }
-
-    // Populate velocities
-    // Each entry has an ID equivalent to its position in the velocities array
-    for (var i = 0; i < velocities.length; i++) {
-        var newEntry = $('<div class="entry velo">'
-        + '<input type="number" value="0" min="0" maxlength="15" step="0.001" '
-        + 'class="' + i + '"> <br>'
-        + velocities[i]['name'] + '</div>');
-
-        // Add entry into the list
-        $('#input_velocity').append(newEntry);
-    }
-    //  Run calculations when the value is changed
-    $('.entry.velo input').each( function() {
-        // Call a calculation to be run, and give a reference to the field making the call
-        $(this).on( 'input', function() { calculate( $(this) ) } );
-        
-        // Call for formatting when the user defocuses
-        $(this).change( function() { formatNumber( $(this) ) } );
-    });
-}
-
-// Beefy calculations 
-function calculate(selectedUnit) {
-    // Get ID number
-    var unitNo = parseInt( $(selectedUnit).attr('class') );
-    // Use the input value to get the equivalent speed in m/s
-    var equivalentSpeed = $(selectedUnit).val() * velocities[unitNo]['speed'];
-
-    // Convert to other units of speed
-    for (var i = 0; i < velocities.length; i++) {
-        // Don't need to calculate for the unit used as the input
-        if (i != unitNo) {
-            // Calculate the equivalent speed in the new units
-            var newSpeed = equivalentSpeed / velocities[i]['speed'];
-
-            // Assign the new value to the corresponding unit's input field
-            $('.entry.velo input.' + i).val(newSpeed.toFixed(3));
-        }
-    }
-
-    // Calculate travel times
-    for (var i = 0; i < distances.length; i++) {
-        // Calculate the equivalent speed in the new units
-        var travelTime = distances[i]['dist'] / equivalentSpeed;
-        var timeUnits = 'seconds';
-
-        if (travelTime != Infinity) {
-            // Begin making conversions to larger units
-            if (travelTime <= 0.5) {
-                // Convert to milliseconds
-                travelTime *= 1000;
-                timeUnits = 'milliseconds';
-            }
-            else if (travelTime > 60) {
-                // Convert to minutes
-                travelTime /= 60;
-                timeUnits = 'minutes';
-
-                if (travelTime > 60) {
-                    // Convert to hours
-                    travelTime /= 60;
-                    timeUnits = 'hours';
-
-                    if (travelTime > 24) {
-                        // Convert to days
-                        travelTime /= 24;
-                        timeUnits = 'days';
-
-                        if (travelTime > 365) {
-                            // Convert to years
-                            travelTime /= 365;
-                            timeUnits = 'years';
-
-                            if (travelTime > 1000) {
-                                // Convert to kyear
-                                travelTime /= 1000;
-                                timeUnits = 'kyear'
-
-                                if (travelTime > 1000) {
-                                    // Convert to Myear or whatever
-                                    travelTime /= 1000;
-                                    timeUnits = 'Myear';
-
-                                    // I'm not going any further than this
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            // Assign the new value to the corresponding unit's input field
-            $('.entry.dist span.' + i).text(travelTime.toFixed(3) + ' ' + timeUnits);
-        }
-        else {
-            // If the input is 0 then it'll take FOREVER
-            if (Math.floor(Math.random() * 700) != 0) {
-                $('.entry.dist span.' + i).text('Forever');
-            }
-            else {
-                $('.entry.dist span.' + i).html( novelty[Math.floor(Math.random() * novelty.length)] )
-            }
-        }
-    }
-}
-
-// Formats numbers to three decimal places
-function formatNumber(selectedUnit) {
-    unitVal = parseFloat($(selectedUnit).val());
-
-    $(selectedUnit).val( unitVal.toFixed(3) );
-}
 
 
 /// UI stuff ///
@@ -213,9 +140,6 @@ function switchMenu(selectedButton) {
 switchMenu(btn_newton);
 
 // Attach listener to all buttons
-$('.sidebar > .button').each( function() {
-                                $(this).click(function() {switchMenu($(this))} )
-                            } );
-
-/// Run ///
-populate();
+$('.sidebar').on('click', '.button', function() {
+    switchMenu($(this) )
+});

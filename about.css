@@ -1,0 +1,55 @@
+/* about.css */
+
+/* Using default layout */
+
+#voyagerProbe {
+    display: block;
+    height: 5em;
+    margin: 3em 0 3em 6em;
+
+    animation-name: voyager;
+    animation-duration: 2s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+@keyframes voyager {
+    from { transform: translate(0, 0) rotate(12deg); }
+    to   { transform: translate(-.02em, .5em) rotate(12deg); }
+}
+
+.aboutWindow {
+    grid-area: area;
+
+    width: 23em;
+    padding: 2em;
+    margin: auto;
+
+    text-align: center;
+
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('img/orion_over.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+}
+.aboutWindow h1 {
+    margin: 0;
+
+    font-size: 4em;
+    font-weight: 200;
+}
+.aboutWindow h2 {
+    margin: 0;
+
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 1em;
+    font-weight: 500;
+}
+
+a.kofi {
+    display: inline-block;
+    margin-top: 4em;
+
+    font-size: 0.8em;
+    font-weight: 700;
+}
