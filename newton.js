@@ -63,7 +63,7 @@ function calculateNewton(selectedUnit, unitIndex) {
         var travelTime = distances[i]['dist'] / equivalentSpeed;
         var timeUnits = 'seconds';
 
-        if (travelTime != Infinity) {
+        if (travelTime != Infinity && travelTime > 0) {
             // Begin making conversions to larger units
             if (travelTime < 1) {
                 // Convert to milliseconds
@@ -126,7 +126,7 @@ function calculateNewton(selectedUnit, unitIndex) {
         }
         else {
             // If the input is 0 then it'll take FOREVER
-            if (Math.floor(Math.random() * 700) != 0) {
+            if (Math.floor(Math.random() * 70) != 0) {
                 $('#inputDist .entry.dist:nth-child(' + (i+1) + ') span:first-child').text('Forever');
             }
             else {

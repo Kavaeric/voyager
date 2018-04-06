@@ -20,7 +20,7 @@ var distances = [];
  * Adds a distance to the list of active ones.
  * @param {String} givenName Name of the distance specified.
  * @param {Number} givenDist Distance in meters.
- * @param {Number} givenUnit Given units. "ly" "au" "pc" "Pm" "Em" accepted.
+ * @param {String} givenUnit Given units. "ly" "au" "pc" "Pm" "Em" accepted.
  */
 function addDistance(givenName, givenDist, givenUnit) {
     // calcDist will store the calculated distance after conversion is done
@@ -53,13 +53,16 @@ function addDistance(givenName, givenDist, givenUnit) {
             calcDist = givenDist * Math.pow(10, 18);
             break;
 
-        // If an invalid number is given, fallback to light-year
+        // If an invalid unit is given, assume metres
         default:
-            calcDist = givenDist * ly;
+            console.warn('importEntries: ');
+            calcDist = givenDist;
     }
     
     distances.push({'name': givenName,
-                    'dist': calcDist});
+                    'dist': calcDist,
+                    'givenDist': givenDist,
+                    'givenUnit': givenUnit});
 
     // Sort the new array by distance
     distances.sort( function(a, b) {
@@ -90,20 +93,20 @@ var velocities = [];
  * @param {String} givenName - Name of the velocity unit specified.
  * @param {Number} givenSpeed - Speed in metres per second.
  */
-function addVelocity(givenName, givenSpeed) {
+function addVelocity(givenName, givenShortName, givenSpeed) {
     velocities.push({'name': givenName,
+                     'unit': givenShortName,
                      'speed': givenSpeed});
 }
 
 // Default speeds. Later, users may set something up on their own
-addVelocity('times the speed of light (c)', c);
-addVelocity('Petametres per hour (Pm/h)',    2.778 * Math.pow(10, 11));
-addVelocity('Exametres per hour (Em/h)',     2.778 * Math.pow(10, 12));
-addVelocity('Light years per hour (ly/h)',   2.628 * Math.pow(10, 12));
-addVelocity('Parsecs per hour (pc/h)',       8.571 * Math.pow(10, 12));
-addVelocity('Light years per second (ly/s)', 9.461 * Math.pow(10, 15));
-addVelocity('Parsecs per second (pc/s)',     3.086 * Math.pow(10, 16));
-
+addVelocity('times the speed of light', 'c'   , c);
+addVelocity('Petametres per hour'     , 'PM/h', 2.778 * Math.pow(10, 11));
+addVelocity('Exametres per hour'      , 'Em/h', 2.778 * Math.pow(10, 14));
+addVelocity('Light years per hour'    , 'ly/h', 2.628 * Math.pow(10, 12));
+addVelocity('Parsecs per hour'        , 'pc/h', 8.571 * Math.pow(10, 12));
+addVelocity('Light years per second'  , 'ly/s', 9.461 * Math.pow(10, 15));
+addVelocity('Parsecs per second'      , 'pc/s', 3.086 * Math.pow(10, 16));
 
 /// UI stuff ///
 var btn_newton = $('.button.newton');

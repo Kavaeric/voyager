@@ -1,6 +1,5 @@
 // novelty.js
 
-// ...get back to work
 var novelty = ['<a href=https://youtu.be/fs6FgBec-nk?t=6s target="_blank">Forever',
                'By Tuesday',
                'FLIGHT DELAYED',
@@ -10,5 +9,10 @@ var novelty = ['<a href=https://youtu.be/fs6FgBec-nk?t=6s target="_blank">Foreve
                '700 years',
                'I\'m afraid I can\'t do that',
                '...ah, damn',
-               '1495...no, wait...',
-               'When I\'m sixty-four'];
+               'Say it louder?',
+               'When I\'m sixty-four',
+               'Forever!',
+               'What\'s a furry again?',
+               'Stop trying to see all these messages'];
+
+// ...get back to work

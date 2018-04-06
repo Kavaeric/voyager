@@ -27,10 +27,20 @@ body {
     background-color: #000;
 
     color: #fff;
-    font-size: 1.5em;
+    font-size: 1em;
     font-family: "HK Grotesk", sans-serif;
     font-weight: 300;
     overflow: hidden;
+}
+@media only screen and (min-width: 1350px) {
+    body {
+        font-size: 1.25em;
+    }
+}
+@media only screen and (min-width: 1800px) {
+    body {
+        font-size: 1.5em;
+    }
 }
 
 .background {
@@ -96,7 +106,7 @@ select {
     font-family: inherit;
     font-weight: 300;
     font-size: 1.2em;
-    border: .1em solid rgba(255, 255, 255, 0.4);
+    border: .1em solid transparent;
     padding: .3em;
     margin-bottom: 1em;
 
@@ -105,6 +115,7 @@ select {
 }
 input:hover,
 select:hover {
+    border-color: rgba(255, 255, 255, .3);
     background-color: rgba(25, 25, 25, .5);
 }
 input:focus,
@@ -123,6 +134,7 @@ input:invalid {
     box-shadow: none;
 }
 select {
+    /* Hide the default arrow */
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -172,6 +184,8 @@ input[type=number] {
     position: relative;
     height: 3em;
     width: 3em;
+
+    background-position: right .75em center;
 
     /* Effectively places the border on the inside instead of the outside */
     box-sizing: border-box;
@@ -232,13 +246,18 @@ input[type=number] {
     align-items: center;
     padding: 0em .8em;
 
-    font-size: 2em;
+    font-size: 1.5em;
     font-weight: 700;
     vertical-align: middle;
 
     background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('img/orion_over.jpg');
     background-size: cover;
     background-attachment: fixed;
+}
+@media only screen and (min-width: 1350px) {
+    .header {
+        font-size: 2em;
+    }
 }
 
 /* List entries */

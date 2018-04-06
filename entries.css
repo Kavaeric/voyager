@@ -7,14 +7,24 @@
     grid-template-areas:
     "header header"
     "navbar navbar"
-    "leftpane rightpane";
+    "content content";
 }
 
 .mode.entries .buttonRow {
     display: flex;
     flex-direction: row-reverse;
 }
+.mode.entries .buttonRow .button {
+    height: 3em;
+    width: 6em;
+}
 
+/* The row of entry modification buttons should be at the bottom, always */
+.mode.entries .buttonRow {
+    grid-row: 2;
+}
+
+/* Navigation bar tabs whatchamacallems */
 #dbNavbar {
     grid-area: navbar;
 
@@ -24,7 +34,6 @@
     background-size: cover;
     background-attachment: fixed;
 }
-
 #dbNavbar > .button {
     position: relative;
     height: 3em;
@@ -49,110 +58,190 @@
     border-bottom: .2em solid #f70;
 }
 
+/* Sub-mode layout */
+.mode.entries .entryMode.entryDist,
+.mode.entries .entryMode.entryVelo {
+    grid-area: content;
+
+    display: grid;
+    grid-template-columns: 40% auto;
+    grid-template-rows: auto 3em;
+    grid-template-areas:
+    "leftpane rightpane"
+    "leftpane rightpane";
+}
 
 #dbDist {
     grid-area: leftpane;
-    overflow-y: auto;
 
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-rows: auto 3em;
 
     background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('img/orion_over.jpg');
     background-size: cover;
     background-attachment: fixed;
 }
-.mode.entries .entry {
+
+/* Container for the list of all the entries */
+#dbDist .dbList,
+#dbVelo .dbList {
+    grid-row: 1;
+
+    max-height: 100%;
+    overflow-y: auto;
+    
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+}
+
+/* Entry item styling */
+#dbDist .entry,
+#dbVelo .entry {
+    display: flex;
     height: 2.5em;
+    margin: 0;
     padding: 0;
 }
-.mode.entries span {
+#dbDist .entry:active,
+#dbVelo .entry:active {
+    background-color: rgba(255, 255, 255, .3);
+}
+#dbDist .entry.on,
+#dbVelo .entry.on {
+    background-color: rgba(255, 255, 255, .2);
+}
+/* Entry text styling */
+#dbDist span,
+#dbVelo span {
     display: inline-block;
     width: 100%;
-    margin: 0.6em 1.5em;
+    height: 2.5em;
+    padding: 0em 1.5em;
+
+    line-height: 2.5em;
 
     white-space: nowrap;
     overflow-x: hidden;
     text-overflow: ellipsis;
 }
-.mode.entries .entry .button {
+/* Entry delete button */
+#dbDist .entry .button,
+#dbVelo .entry .button {
     display: inline-block;
     height: 2.5em;
     width: 5em;
     right: 0;
 
-    background-image: url("icons/delete.png");
+    background-image: url("icons/x.png");
 }
 
-#dbDistAddEntry {
+/* The import button. Not actually visible */
+#distImport,
+#veloImport {
+	position: absolute;
+	width: 0.1px;
+	height: 0.1px;
+	overflow: hidden;
+    opacity: 0;
+    
+	z-index: -9;
+}
+#dbDist .buttonRow .button.import,
+#dbVelo .buttonRow .button.import {
+    background-image: url("icons/import.png");
+}
+#dbDist .buttonRow .button.export,
+#dbVelo .buttonRow .button.export {
+    background-image: url("icons/export.png");
+}
+
+/* Editing pane */
+#dbDistEditEntry,
+#dbVeloEditEntry {
     grid-area: rightpane;
     overflow-y: auto;
-
-    display: grid;
-    grid-template-rows: auto 3em;
 
     background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('img/orion_over.jpg');
     background-size: cover;
     background-attachment: fixed;
-}
 
-#dbDistAddEntry .entryForm {
     display: flex;
     flex-direction: column;
 
-    padding: .6em 1.5em;
+    padding: 1em 1.5em;
 }
 
-#dbDistAddEntry .entryForm h1,
-#dbDistAddEntry .entryForm h2,
-#dbDistAddEntry .entryForm input {
+#dbDistEditEntry h1,
+#dbDistEditEntry h2,
+#dbDistEditEntry input,
+#dbVeloEditEntry h1,
+#dbVeloEditEntry h2,
+#dbVeloEditEntry input {
     font-family: inherit;
     display: inline-block;
 }
 
-#dbDistAddEntry .entryForm h1 {
-    grid-column: 0 / 3;
-    grid-row: 0 / 1;
-
+#dbDistEditEntry h1,
+#dbVeloEditEntry h1 {
     margin: 0;
 
     font-size: 2em;
     font-weight: 300;
 }
 
-#dbDistAddEntry .entryForm h2 {
+#dbDistEditEntry h2,
+#dbVeloEditEntry h2 {
     margin: .5em 0;
 
     font-size: 1em;
     font-weight: 500;
 }
 
-#dbDistAddEntry .entryForm input[type="number"] {
+#dbDistEditEntry input[type="number"] {
     text-align: right;
 }
 
-#dbDistAddEntry .entryForm .distanceInputBoxes {
+#dbDistEditEntry .distanceInputBoxes {
     display: flex;
 }
-#dbDistAddEntry .entryForm .distanceInputBoxes input {
+#dbDistEditEntry .distanceInputBoxes input {
     margin-right: 1em;
-    flex-grow: 1;
 }
-#dbDistAddEntry .entryForm .distanceInputBoxes select {
+#dbDistEditEntry .distanceInputBoxes select {
     flex-grow: 1;
 }
 
-#dbDistAddEntry .button.save,
-#dbDistAddEntry .button.cancel {
-    height: 3em;
-    width: 6em;
+#dbDistEditEntry .buttonRow,
+#dbVeloEditEntry .buttonRow {
+    margin: auto -1.5em -.6em 0;
 }
-
-#dbDistAddEntry .button.save {
+#dbDistEditEntry .buttonRow .button.save,
+#dbVeloEditEntry .buttonRow .button.save {
     background-image: url("icons/save.png");
 }
-#dbDistAddEntry .button.cancel {
-    background-image: url("icons/delete.png");
+#dbDistEditEntry .buttonRow .button.cancel,
+#dbVeloEditEntry .buttonRow .button.cancel {
+    background-image: url("icons/x.png");
+}
+
+/* ---------------- */
+/* Velocity Editing */
+/* ---------------- */
+
+/* Sub-mode layout */
+#dbVelo {
+    grid-area: leftpane;
+
+    display: grid;
+    grid-template-rows: auto 3em;
+
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('img/orion_over.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+#dbVelo .buttonRow {
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('img/orion_over.jpg');
+    background-size: cover;
+    background-attachment: fixed;
 }

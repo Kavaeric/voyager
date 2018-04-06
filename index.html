@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="about.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="jquery-csv.js"></script>
     <script src="novelty.js" defer></script>
     <script src="main.js" defer></script>
     <script src="newton.js" defer></script>
@@ -58,19 +59,29 @@
             <div class="header">DATABASE ENTRIES</div>
             <div id="dbNavbar">
                 <div class="button dist on">Distances</div>
+                <div class="button velo" style="display: none;">Velocities</div>
             </div>
 
-            <div id="dbDist"></div>
+            <!-- Distance entries -->
+            <div class="entryMode entryDist">
+                <div id="dbDist">
+                    <div class="dbList"></div>
 
-            <div id="dbDistAddEntry">
-                <div class="entryForm">
+                    <div class="buttonRow">
+                        <div class="button export" title="Export"></div>
+                        <input id="distImport" type="file" accept=".csv">
+                        <label for="distImport" class="button import" title="Import"></label>
+                    </div>
+                </div>
+
+                <div id="dbDistEditEntry">
                     <h1>Create Distance</h1>
                     <h2>Name</h2>
                     <input name="name" type="text" placeholder="Arbitrary Distance" value="">
 
                     <h2>Distance</h2>
                     <div class="distanceInputBoxes">
-                        <input name="dist" type="number" placeholder="1" value="1" min="0.001" maxlength="12" step="0.001">
+                        <input name="dist" type="number" placeholder="1" value="1" min="0.001" maxlength="12" step="0.000001">
                         <select name="unit">
                             <option value="au">astronomical units</option>
                             <option value="ly">light years</option>
@@ -79,11 +90,37 @@
                             <option value="Em">exametres</option>
                         </select>
                     </div>
+
+                    <div class="buttonRow">
+                        <div class="button cancel" title="Cancel"></div>
+                        <div class="button save" title="Save"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Velocity entries -->
+            <div class="entryMode entryVelo">
+                <div id="dbVelo">
+                    <div class="dbList"></div>
+
+                    <div class="buttonRow">
+                        <div class="button export" title="Export"></div>
+                        <input id="veloImport" type="file" accept=".csv">
+                        <label for="veloImport" class="button import" title="Import"></label>
+                    </div>
                 </div>
 
-                <div class="buttonRow">
-                    <div class="button cancel" title="Cancel"></div>
-                    <div class="button save" title="Save"></div>
+                <div id="dbVeloEditEntry">
+                    <h1>Create Velocity</h1>
+                    <h2>Name</h2>
+                    <input name="name" type="text" placeholder="Arbitrary Velocity" value="">
+
+                    <h2>Velocity</h2>
+
+                    <div class="buttonRow">
+                        <div class="button cancel" title="Cancel"></div>
+                        <div class="button save" title="Save"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -93,12 +130,12 @@
             <div class="header">ABOUT</div>
             <div class="aboutWindow">
                 <h1>Voyager</h1>
-                <h2>A 07 &ensp;&ndash;&ensp; 27 August 2017</h2>
+                <h2>R 08 &ensp;&ndash;&ensp; 07 April 2018</h2>
                 <p>Hi, I'm <a href="https://twitter.com/Kavaeric/status/898970080297472000" target="_blank">Kavaeric</a>. 
                     I develop my own science-fiction world, +700, and made this tool to help.
                     I hope it helps you in your endeavours as well.</p>
-                <img id="voyagerProbe" src="voyager.svg">
-                <a class="kofi" href="https://ko-fi.com/kavaeric" target="_blank">BUY ME A KO-FI &#x2764;</a>
+                <img id="voyagerProbe" src="img/voyager.svg">
+                <a class="kofi" href="https://ko-fi.com/kavaeric" target="_blank">SUPPORT ME WITH A KO-FI DONATION &#x2764;</a>
             </div>
         </div>
     </div>
